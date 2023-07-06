@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "name": "test",
+      "time": "123",
+      "invitees_by_email": "asdf",
+      "id": 1
+    }
+  ]
+}
