@@ -6,6 +6,7 @@
 - CSS: Tailwind CSS
 - Tools:
   - Json Server
+  - Axios
   
 ## Project Setup
 
@@ -40,6 +41,7 @@ npm run dev
 ```
 
 ## Additional Resources
+- [Axios Documentation](https://github.com/axios/axios)
 - [Json-server Documentation](https://github.com/typicode/json-server)
 - [Tailwind CSS Documentation](https://tailwindcss.com/)
 - [Vite Documentation](https://vitejs.dev/)
