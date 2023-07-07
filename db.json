@@ -1,44 +1,12 @@
 {
   "events": [
     {
-      "name": "Ahmad Admin",
-      "time": "10:39",
-      "invitees_by_email": "asdf",
-      "date": "2023-07-04",
-      "color": "purple",
-      "id": 1
-    },
-    {
-      "name": "asdfdxxc",
-      "time": "12:40",
-      "invitees_by_email": "dccc",
-      "date": "2023-07-04",
-      "color": "mediumvioletred",
-      "id": 3
-    },
-    {
-      "name": "cccc",
-      "time": "11:40",
-      "invitees_by_email": "asxxx",
-      "date": "2023-07-05",
-      "color": "mediumvioletred",
-      "id": 4
-    },
-    {
-      "name": "xxxx",
-      "time": "12:40",
-      "invitees_by_email": "sadfs",
+      "name": "Membaca Buku Bersama",
+      "time": "18:00",
+      "invitees_by_email": "tester@gmail.com",
       "date": "2023-07-04",
       "color": "darkturquoise",
-      "id": 5
-    },
-    {
-      "name": "asdasd",
-      "time": "12:42",
-      "invitees_by_email": "asdfsadf",
-      "date": "2023-07-05",
-      "color": "purple",
-      "id": 8
+      "id": 1
     }
   ]
 }

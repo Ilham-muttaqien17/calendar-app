@@ -19,8 +19,9 @@ export default {
       modalEventVisibility: false,
       modalPostEventVisibility: false,
       confirmDeleteVisibility: false,
+      updateModalVisibility: false,
       selectedDate: "",
-      selectedEvent: {},
+      selectedEventId: "",
       disabled: false,
     };
   },
@@ -56,7 +57,17 @@ export default {
     handleDeleteModal(item) {
       this.modalEventVisibility = false;
       this.confirmDeleteVisibility = true;
-      this.selectedEvent = item;
+      this.selectedEventId = item.id;
+    },
+    handleUpdateModal(item) {
+      this.form = {
+        name: item.name,
+        time: item.time,
+        invitees_by_email: item.invitees_by_email,
+      };
+      this.modalEventVisibility = false;
+      this.updateModalVisibility = true;
+      this.selectedEventId = item.id;
     },
     async handleCreateEvent() {
       const selectedColor = [];
@@ -79,8 +90,20 @@ export default {
       }
     },
     async handleDeleteEvent() {
-      let response = await api.delete(`/events/${this.selectedEvent.id}`);
+      let response = await api.delete(`/events/${this.selectedEventId}`);
 
+      if (response.status === 200) {
+        window.location.reload();
+      }
+    },
+    async handleUpdateEvent() {
+      const data = {
+        name: this.form.name,
+        time: this.form.time,
+        invitees_by_email: this.form.invitees_by_email,
+      };
+
+      const response = await api.patch(`/events/${this.selectedEventId}`, data);
       if (response.status === 200) {
         window.location.reload();
       }
@@ -143,7 +166,10 @@ export default {
         >
           <event-card :item="item" :maxWidth="300" />
           <div class="flex items-center space-x-2 ml-auto">
-            <button class="bg-yellow-400 text-white px-2 py-1 rounded-md">
+            <button
+              @click="handleUpdateModal(item)"
+              class="bg-yellow-400 text-white px-2 py-1 rounded-md"
+            >
               Update
             </button>
             <button
@@ -230,6 +256,46 @@ export default {
           </button>
         </div>
       </div>
+    </modal-base>
+
+    <!-- Modal Update Event -->
+    <modal-base
+      v-if="updateModalVisibility"
+      :width="500"
+      @close-modal="updateModalVisibility = false"
+    >
+      <form class="flex flex-col space-y-2" @submit.prevent="handleUpdateEvent">
+        <div class="flex flex-col space-y-1">
+          <label for="name">Event Name</label>
+          <input
+            class="outline-none border border-gray-300 rounded-lg px-2 py-1"
+            v-model="form.name"
+            type="text"
+            id="name"
+          />
+        </div>
+        <div class="flex flex-col space-y-1">
+          <label for="time">Time</label>
+          <input
+            class="outline-none border border-gray-300 rounded-lg px-2 py-1"
+            v-model="form.time"
+            type="time"
+            id="time"
+          />
+        </div>
+        <div class="flex flex-col space-y-1">
+          <label for="invitees_by_email">Invitees Email</label>
+          <input
+            class="outline-none border border-gray-300 rounded-lg px-2 py-1"
+            v-model="form.invitees_by_email"
+            type="text"
+            id="invitees_by_email"
+          />
+        </div>
+        <button class="text-white bg-blue-500 px-4 py-2 rounded-lg mt-4">
+          Update
+        </button>
+      </form>
     </modal-base>
   </div>
 </template>
