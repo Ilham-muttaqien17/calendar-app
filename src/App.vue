@@ -18,7 +18,9 @@ export default {
       currentMonth: "",
       modalEventVisibility: false,
       modalPostEventVisibility: false,
+      confirmDeleteVisibility: false,
       selectedDate: "",
+      selectedEvent: {},
       disabled: false,
     };
   },
@@ -51,6 +53,11 @@ export default {
       this.modalEventVisibility = false;
       this.modalPostEventVisibility = true;
     },
+    handleDeleteModal(item) {
+      this.modalEventVisibility = false;
+      this.confirmDeleteVisibility = true;
+      this.selectedEvent = item;
+    },
     async handleCreateEvent() {
       const selectedColor = [];
       this.events.map((e) => {
@@ -68,6 +75,13 @@ export default {
       };
       const response = await api.post("/events", data);
       if (response.status === 201) {
+        window.location.reload();
+      }
+    },
+    async handleDeleteEvent() {
+      let response = await api.delete(`/events/${this.selectedEvent.id}`);
+
+      if (response.status === 200) {
         window.location.reload();
       }
     },
@@ -119,13 +133,27 @@ export default {
       v-if="modalEventVisibility"
       @close-modal="modalEventVisibility = false"
     >
-      <h2 class="text-lg font-semibold">
+      <h2 class="text-lg font-semibold mb-4">
         List Event on {{ formatDate(selectedDate) }}
       </h2>
       <div v-for="(item, key) in events" :key="key">
-        <span v-if="item.date === formatDate(selectedDate)">
-          <event-card :item="item" />
-        </span>
+        <div
+          class="flex items-center space-x-4"
+          v-if="item.date === formatDate(selectedDate)"
+        >
+          <event-card :item="item" :maxWidth="300" />
+          <div class="flex items-center space-x-2 ml-auto">
+            <button class="bg-yellow-400 text-white px-2 py-1 rounded-md">
+              Update
+            </button>
+            <button
+              @click="handleDeleteModal(item)"
+              class="bg-red-500 text-white px-2 py-1 rounded-md"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
       <button
         @click="handleClickCreate"
@@ -154,27 +182,54 @@ export default {
           />
         </div>
         <div class="flex flex-col space-y-1">
-          <label for="name">Time</label>
+          <label for="time">Time</label>
           <input
             class="outline-none border border-gray-300 rounded-lg px-2 py-1"
             v-model="form.time"
             type="time"
-            id="name"
+            id="time"
           />
         </div>
         <div class="flex flex-col space-y-1">
-          <label for="name">Invitees Email</label>
+          <label for="invitees_by_email">Invitees Email</label>
           <input
             class="outline-none border border-gray-300 rounded-lg px-2 py-1"
             v-model="form.invitees_by_email"
             type="text"
-            id="name"
+            id="invitees_by_email"
           />
         </div>
         <button class="text-white bg-blue-500 px-4 py-2 rounded-lg mt-4">
           Submit
         </button>
       </form>
+    </modal-base>
+
+    <!-- Modal Delete Event Confirmation -->
+    <modal-base
+      v-if="confirmDeleteVisibility"
+      :width="500"
+      @close-modal="confirmDeleteVisibility = false"
+    >
+      <div class="flex flex-col">
+        <span class="text-lg font-semibold"
+          >Are you sure want to delete this event?</span
+        >
+        <div class="flex items-center space-x-4 mt-6 ml-auto">
+          <button
+            class="bg-gray-400 text-white px-2 py-1 rounded-md"
+            @click="confirmDeleteVisibility = false"
+          >
+            Cancel
+          </button>
+          <button
+            @click="handleDeleteEvent"
+            class="bg-red-500 text-white px-2 py-1 rounded-md"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
     </modal-base>
   </div>
 </template>
