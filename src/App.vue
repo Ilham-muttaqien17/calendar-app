@@ -260,7 +260,10 @@ export default {
     <modal-base
       v-if="updateModalVisibility"
       :width="500"
-      @close-modal="updateModalVisibility = false"
+      @close-modal="
+        updateModalVisibility = false;
+        form = {};
+      "
     >
       <form class="flex flex-col space-y-2" @submit.prevent="handleUpdateEvent">
         <div class="flex flex-col space-y-1">

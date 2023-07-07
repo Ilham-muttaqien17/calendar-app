@@ -7,6 +7,14 @@
       "date": "2023-07-04",
       "color": "darkturquoise",
       "id": 1
+    },
+    {
+      "name": "Membaca Buku Arab",
+      "time": "19:00",
+      "invitees_by_email": "tester1@gmail.com",
+      "date": "2023-07-05",
+      "color": "pink",
+      "id": 2
     }
   ]
 }
