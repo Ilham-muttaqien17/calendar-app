@@ -73,9 +73,6 @@ function getAvailableDate() {
     let dates = [...getRemainDayPrevMonth(), ...getTotalDayCurrentMont()];
     let date = new Date();
 
-    // console.log(getRemainDayPrevMonth().length)
-
-    // if(dates.length <= 35) {
     for (
         let i =
                 getRemainDayPrevMonth().length +
@@ -90,7 +87,6 @@ function getAvailableDate() {
         dates.push(obj);
         j++;
     }
-    // }
 
     return dates;
 }

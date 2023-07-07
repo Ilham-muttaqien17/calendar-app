@@ -36,11 +36,9 @@ export default {
       return new Intl.DateTimeFormat("en", { day: "numeric" }).format(date);
     },
     handleSelectDay(day) {
-      console.log({ day });
       this.selectedDate = day;
       this.modalEventVisibility = true;
       const event = this.events.filter((e) => e.date === this.formatDate(day));
-      console.log({ event });
       this.disabled = event.length > 3 ? true : false;
     },
     formatDate(date) {
