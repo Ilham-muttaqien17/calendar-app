@@ -1,7 +1,46 @@
-# Vue 3 + Vite
+# Calendar App
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Tech Stack
+- Language: Javascript
+- Framework: Vue 3 + Vite
+- CSS: Tailwind CSS
+- Tools:
+  - Json Server
+  
+## Project Setup
 
-## Recommended IDE Setup
+Clone this repository with:
+```
+git clone https://github.com/Ilham-muttaqien17/calendar-app.git
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Navigate to the project directory:
+```
+cd calendar-app
+```
+
+Install dependencies with
+```
+npm install
+```
+
+Install json-server with
+```
+npm install -g json-server
+```
+
+Activate json-server with following command:
+```
+json-server db.json
+```
+
+To start the development server, run the following command:
+```
+npm run dev
+```
+
+## Additional Resources
+- [Json-server Documentation](https://github.com/typicode/json-server)
+- [Tailwind CSS Documentation](https://tailwindcss.com/)
+- [Vite Documentation](https://vitejs.dev/)
+- [Vue.js Documentation](https://vuejs.org/)
