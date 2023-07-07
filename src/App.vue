@@ -23,7 +23,16 @@ export default {
       selectedDate: "",
       selectedEventId: "",
       disabled: false,
+      disableSubmit: true,
     };
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler() {
+        this.checkInput();
+      },
+    },
   },
   async mounted() {
     this.currentMonth = getCurrentMonth();
@@ -32,6 +41,11 @@ export default {
     this.events = response.data;
   },
   methods: {
+    checkInput() {
+      this.disableSubmit =
+        Object.keys(this.form).length < 1 ||
+        !Object.keys(this.form).every((e) => this.form[e] !== "");
+    },
     getDay(date) {
       return new Intl.DateTimeFormat("en", { day: "numeric" }).format(date);
     },
@@ -223,7 +237,14 @@ export default {
             id="invitees_by_email"
           />
         </div>
-        <button class="text-white bg-blue-500 px-4 py-2 rounded-lg mt-4">
+        <button
+          :disabled="disableSubmit"
+          class="text-white bg-blue-500 px-4 py-2 rounded-lg mt-4"
+          :class="{
+            'bg-gray-300': disableSubmit,
+            'bg-blue-500': !disableSubmit,
+          }"
+        >
           Submit
         </button>
       </form>
@@ -293,7 +314,14 @@ export default {
             id="invitees_by_email"
           />
         </div>
-        <button class="text-white bg-blue-500 px-4 py-2 rounded-lg mt-4">
+        <button
+          :disabled="disableSubmit"
+          class="text-white bg-blue-500 px-4 py-2 rounded-lg mt-4"
+          :class="{
+            'bg-gray-300': disableSubmit,
+            'bg-blue-500': !disableSubmit,
+          }"
+        >
           Update
         </button>
       </form>
